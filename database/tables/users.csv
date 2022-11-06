@@ -1,0 +1,6 @@
+user_id,first_name,last_name,email,credit_id,address_id
+user1,Tom,Brady,tbrady@gmail.com,crd3,addr1
+user2,Elon,Musk,emusk@gmail.com,crd4,addr3
+user3,Mickey,Mouse,mmouse@gmail.com,crd4,addr4
+user4,Abraham,Lincoln,alincoln@gmail.com,crd1,addr4
+user5,Owen,Wilson,owilson@gmail.com,crd2,addr2

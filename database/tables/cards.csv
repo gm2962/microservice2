@@ -1,0 +1,5 @@
+card_id,number,exp_month,exp_year,csv,type
+crd1,12345,6,2023,3,Visa
+crd2,44444,3,2022,5,Visa
+crd3,52563,5,2025,2,Mastercard
+crd4,86237,7,2024,3,Visa
