@@ -2,6 +2,8 @@ from flask import Flask, Response, request
 from datetime import datetime
 import json
 from users import UsersResource
+from cards import CardResource
+from address import AddrResource
 from flask_cors import CORS
 
 # Create the Flask application object.
@@ -10,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route("/users", methods=["GET"])
-def get_products():
+def get_users():
     limit = request.args.get("limit", default=5)
     offset = request.args.get("offset", default=0)
 
@@ -24,8 +26,54 @@ def get_products():
 
 
 @app.route("/users/<user_id>", methods=["GET"])
-def get_product_id(user_id):
+def get_user_by_id(user_id):
     result = UsersResource.get_user_by_id(user_id)
+
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
+
+
+@app.route("/users/<user_id>/cards", methods=["GET"])
+def get_cid_from_user_id(user_id):
+    result = UsersResource.get_user_by_id(user_id, "credit_id")
+
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
+
+@app.route("/users/<user_id>/cards/<cid>", methods=["GET"])
+def get_card_id(user_id, cid):
+    result = CardResource.get_card_by_id(cid)
+
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
+
+
+@app.route("/users/<user_id>/addresses", methods=["GET"])
+def get_addr_from_user_id(user_id):
+    result = UsersResource.get_user_by_id(user_id, "address_id")
+
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
+
+@app.route("/users/<user_id>/addresses/<aid>", methods=["GET"])
+def get_addr_id(user_id, aid):
+    result = AddrResource.get_address_by_id(aid)
 
     if result:
         rsp = Response(json.dumps(result), status=200, content_type="application.json")
