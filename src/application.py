@@ -1,6 +1,9 @@
 from flask import Flask, Response, request
 from datetime import datetime
 import json
+import random
+from flask.templating import render_template
+from flask import redirect
 from users import UsersResource
 from cards import CardResource
 from address import AddrResource
@@ -23,6 +26,20 @@ def get_users():
         rsp = Response("NOT FOUND", status=404, content_type="text/plain")
 
     return rsp
+
+
+@app.route("/add_user", methods=["GET", "POST"])
+def add_user():
+    if request.method == 'POST':
+        user_id = "user" + str(random.randint(0, 1024))
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form.get('email')
+        #TODO: credit card and address
+
+        UsersResource.add_user(user_id, first_name, last_name, email)
+        return redirect("/users/" + user_id)
+    return render_template('add_user.html')
 
 
 @app.route("/users/<user_id>", methods=["GET"])

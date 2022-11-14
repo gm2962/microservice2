@@ -36,6 +36,16 @@ class UsersResource:
 
         return result
 
+    @staticmethod
+    def add_user(uid, first_name, last_name, email):
+        sql = "INSERT INTO commerce2.users (`user_id`, `first_name`, `last_name`, `email`) VALUES (%s, %s, %s,%s)"
+        conn = UsersResource._get_connection()
+        cur = conn.cursor()
+
+        res = cur.execute(sql, (uid, first_name, last_name, email))
+        result = cur.fetchone()
+
+        return result
 
     @staticmethod
     def get_user_by_id(key, var="*"):

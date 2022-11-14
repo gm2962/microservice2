@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd506349-767e-4c6c-936f-e346f0a14053" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../src/cards.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/templates/add_user.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice2.sql" beforeDir="false" afterPath="$PROJECT_DIR$/microservice2.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/application.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/users.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,10 +41,20 @@
       <recent name="C:\Users\gregm\Documents\columbia\cloud\microservice1\microservice1\database\" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Database Script.microservice2.sql">
     <configuration name="Unnamed" type="DatabaseScript" nameIsGenerated="true">
       <method v="2" />
     </configuration>
+    <configuration name="microservice2.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/microservice2.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.microservice2.sql" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="Vcs.Log.Tabs.Properties">
