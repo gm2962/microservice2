@@ -9,6 +9,7 @@ from cards import CardResource
 from address import AddrResource
 from flask_cors import CORS
 
+
 # Create the Flask application object.
 app = Flask(__name__)
 
@@ -35,9 +36,20 @@ def add_user():
         first_name = request.form.get('first_name')
         last_name = request.form.get('last_name')
         email = request.form.get('email')
-        #TODO: credit card and address
 
-        UsersResource.add_user(user_id, first_name, last_name, email)
+        addr_id = "addr" + str(random.randint(0, 1024))
+        number = request.form.get("number")
+        street = request.form.get("street")
+        city = request.form.get("city")
+        state = request.form.get("state")
+        zipcode = request.form.get("zip")
+
+        if not AddrResource.verify_address(number + " " + street, zipcode, state, city):
+            return Response("ADDRESS INVALID", status=404, content_type="text/plain")
+
+        AddrResource.add_address(addr_id, number, street, city, state, zipcode)
+        UsersResource.add_user(user_id, first_name, last_name, email, addr_id)
+
         return redirect("/users/" + user_id)
     return render_template('add_user.html')
 

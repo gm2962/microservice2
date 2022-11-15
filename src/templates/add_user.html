@@ -2,17 +2,27 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Add Profile</title>
+      <title>Add User</title>
    </head>
    <body>
-      <h3>Profile form</h3>
+      <h3>User Profile form</h3>
       <form action="/add_user" method="POST">
          <label>First Name</label>
-         <input type="text" name="first_name" placeholder="first name...">
+         <input type="text" name="first_name" placeholder="first name..."><br>
          <label>Last Name</label>
-         <input type="text" name= "last_name" placeholder="last name...">
+         <input type="text" name= "last_name" placeholder="last name..."><br>
          <label>Email</label>
-         <input type="text" name="email" placeholder="email..">
+         <input type="text" name="email" placeholder="email.."><br>
+
+         <label>Street Address</label>
+         <input type="text" name="number" placeholder="No">
+         <input type="text" name="street" placeholder="Street"><br>
+         <label>City</label>
+         <input type="text" name="city" placeholder="city.."><br>
+         <label>State</label>
+         <input type="text" name="state" placeholder="state.."><br>
+         <label>Zip</label>
+         <input type="text" name="zip" placeholder="zip.."><br>
          <button type="submit">Add</button>
       </form>
    </body>
