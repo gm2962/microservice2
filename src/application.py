@@ -1,7 +1,9 @@
-from flask import Flask, Response, request
+from flask import Flask, Response, request, redirect, session, url_for
 from datetime import datetime
 import json
 import random
+import os
+from authlib.integrations.flask_client import OAuth
 from flask.templating import render_template
 from flask import redirect
 from users import UsersResource
@@ -14,6 +16,64 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 CORS(app)
+
+
+#login setup
+app.secret_key = "3487836939993559999334502"
+app.config['SESSION_COOKIE_NAME'] = 'google-login-session'
+
+# oAuth Setup
+oauth = OAuth(app)
+oauth.register(
+    name='google',
+    client_id=os.getenv("GOOGLE_CLIENT_ID"),
+    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_params=None,
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    authorize_params=None,
+    api_base_url='https://www.googleapis.com/oauth2/v1/',
+    client_kwargs={'scope': 'email profile'},
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+)
+
+
+
+@app.route('/login_callback')
+def login_callback():
+    token = oauth.google.authorize_access_token()
+    resp = oauth.google.get('userinfo')
+    user_info = resp.json()
+    print(" Google User ", user_info)
+    session["user_info"] = user_info
+    return redirect('/')
+
+
+@app.route('/login')
+def login_fnc():
+    if 'user_info' not in session:
+        redirect_uri = url_for('login_callback', _external=True)
+        return oauth.google.authorize_redirect(redirect_uri)
+    else:
+        email = dict(session)['user_info']['email']
+        return f"Welcome {email}"
+
+@app.before_request
+def check_login():
+    if 'login_callback' not in request.endpoint and 'user_info' not in session:
+        redirect_uri = url_for('login_callback', _external=True)
+        return oauth.google.authorize_redirect(redirect_uri)
+
+@app.route('/logout')
+def logout():
+    for key in list(session.keys()):
+        session.pop(key)
+    return "You are logged out"
+
+@app.route("/")
+def landing_page():
+    email = dict(session)['user_info']['email']
+    return f'Hello, you are logged in as {email}!'
 
 @app.route("/users", methods=["GET"])
 def get_users():
