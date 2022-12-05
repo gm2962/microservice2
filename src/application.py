@@ -1,5 +1,4 @@
 from flask import Flask, Response, request, redirect, session, url_for
-from datetime import datetime
 import json
 import random
 import os
@@ -9,6 +8,7 @@ from flask import redirect
 from users import UsersResource
 from cards import CardResource
 from address import AddrResource
+from microservice2.middleware.notification import SNSHandler
 from flask_cors import CORS
 
 
@@ -16,6 +16,9 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 CORS(app)
+
+#SNS locations relevent to this microservice
+WELCOME_EMAIL_SNS = 'arn:aws:sns:us-east-1:220478294544:welcome-email'
 
 
 #login setup
@@ -60,9 +63,25 @@ def login_fnc():
 
 @app.before_request
 def check_login():
-    if 'login_callback' not in request.endpoint and 'user_info' not in session:
+    not_login_cb = True
+    if request.endpoint is None:
+        not_login_cb = True
+    elif 'login_callback' not in request.endpoint:
+        not_login_cb = False
+
+    if not_login_cb and 'user_info' not in session:
         redirect_uri = url_for('login_callback', _external=True)
         return oauth.google.authorize_redirect(redirect_uri)
+
+@app.after_request
+def trigger_event(response):
+    if request.path == '/add_user' and request.method == 'POST':
+        message = {"admin_email": "test@columbia.edu"}
+        SNSHandler.send_sns_message(
+            WELCOME_EMAIL_SNS,
+            message
+        )
+    return response
 
 @app.route('/logout')
 def logout():
