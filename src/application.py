@@ -1,14 +1,14 @@
-from flask import Flask, Response, request, redirect, session, url_for
+from flask import Flask, Response, request, redirect, session
 import json
 import random
 import os
-from authlib.integrations.flask_client import OAuth
 from flask.templating import render_template
 from flask import redirect
 from users import UsersResource
 from cards import CardResource
 from address import AddrResource
 from microservice2.middleware.notification import SNSHandler
+from microservice2.middleware.login import loginHandler
 from flask_cors import CORS
 
 
@@ -16,6 +16,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 CORS(app)
+loginHandler.init_oauth(app)
 
 #SNS locations relevent to this microservice
 WELCOME_EMAIL_SNS = 'arn:aws:sns:us-east-1:220478294544:welcome-email'
@@ -23,29 +24,13 @@ WELCOME_EMAIL_SNS = 'arn:aws:sns:us-east-1:220478294544:welcome-email'
 
 #login setup
 app.secret_key = "3487836939993559999334502"
-app.config['SESSION_COOKIE_NAME'] = 'google-login-session'
 
-# oAuth Setup
-oauth = OAuth(app)
-oauth.register(
-    name='google',
-    client_id=os.getenv("GOOGLE_CLIENT_ID"),
-    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    access_token_params=None,
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    authorize_params=None,
-    api_base_url='https://www.googleapis.com/oauth2/v1/',
-    client_kwargs={'scope': 'email profile'},
-    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
-)
 
 
 
 @app.route('/login_callback')
 def login_callback():
-    token = oauth.google.authorize_access_token()
-    resp = oauth.google.get('userinfo')
+    resp = loginHandler.login_cb()
     user_info = resp.json()
     print(" Google User ", user_info)
     session["user_info"] = user_info
@@ -55,23 +40,21 @@ def login_callback():
 @app.route('/login')
 def login_fnc():
     if 'user_info' not in session:
-        redirect_uri = url_for('login_callback', _external=True)
-        return oauth.google.authorize_redirect(redirect_uri)
+        return loginHandler.call_to_login('login_callback')
     else:
         email = dict(session)['user_info']['email']
         return f"Welcome {email}"
 
 @app.before_request
 def check_login():
-    not_login_cb = True
+    not_login_cb = False
     if request.endpoint is None:
         not_login_cb = True
     elif 'login_callback' not in request.endpoint:
-        not_login_cb = False
+        not_login_cb = True
 
     if not_login_cb and 'user_info' not in session:
-        redirect_uri = url_for('login_callback', _external=True)
-        return oauth.google.authorize_redirect(redirect_uri)
+        return loginHandler.call_to_login('login_callback')
 
 @app.after_request
 def trigger_event(response):
