@@ -26,8 +26,9 @@ class UsersResource:
 
 
     @staticmethod
-    def get_users_list(limit, offset):
-        sql="SELECT * FROM commerce2.users ORDER BY user_id LIMIT %s OFFSET %s;" % (limit, offset)
+    def get_users_list(limit, offset, var='*'):
+        sql=f"SELECT %s FROM commerce2.users ORDER BY user_id LIMIT %s OFFSET %s;" \
+            % (var, limit, offset)
         print(sql)
         conn = UsersResource._get_connection()
         cur = conn.cursor()
@@ -37,12 +38,14 @@ class UsersResource:
         return result
 
     @staticmethod
-    def add_user(uid, first_name, last_name, email, addr_id):
-        sql = "INSERT INTO commerce2.users (`user_id`, `first_name`, `last_name`, `email`, `address_id`) VALUES (%s, %s, %s,%s, %s)"
+    def add_user(uid, first_name, last_name, email, addr_id, is_admin):
+        print(f"Adding user {uid}: {email}")
+        sql = "INSERT INTO commerce2.users (`user_id`, `first_name`, `last_name`, `email`, `address_id`, `is_admin`) " \
+              "VALUES (%s, %s, %s,%s, %s, %s)"
         conn = UsersResource._get_connection()
         cur = conn.cursor()
 
-        res = cur.execute(sql, (uid, first_name, last_name, email, addr_id))
+        res = cur.execute(sql, (uid, first_name, last_name, email, addr_id, is_admin))
         result = cur.fetchone()
 
         return result

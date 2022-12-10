@@ -2,18 +2,12 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Add User</title>
+      <title>Create Account</title>
    </head>
    <body>
-      <h3>User Profile form</h3>
-      <form action="/add_user" method="POST">
-         <label>First Name</label>
-         <input type="text" name="first_name" placeholder="first name..."><br>
-         <label>Last Name</label>
-         <input type="text" name= "last_name" placeholder="last name..."><br>
-         <label>Email</label>
-         <input type="text" name="email" placeholder="email.."><br>
-         <input type="checkbox" id="is_admin" name="is_admin" value="0">
+      <h3>Welcome {{email}}...let's get you setup:</h3>
+      <form action="/create_account" method="POST">
+         <input type="checkbox" id="is_admin" name="is_admin" value="off">
          <label for="is_admin"> Is admin</label><br>
 
          <label>Street Address</label>

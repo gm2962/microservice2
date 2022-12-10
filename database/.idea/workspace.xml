@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd506349-767e-4c6c-936f-e346f0a14053" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../src/templates/create_account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/22f44741-d331-4ebd-992a-586d84d4def4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/22f44741-d331-4ebd-992a-586d84d4def4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bbdc9515-3fd9-4137-8add-31682e5279e6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bbdc9515-3fd9-4137-8add-31682e5279e6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tables/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/tables/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/address.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/address.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/application.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/templates/add_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/templates/add_user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/users.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

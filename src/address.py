@@ -67,6 +67,7 @@ class AddrResource:
         return True
     @staticmethod
     def add_address(addr_id, number, street, city, state, zipcode):
+        print(f"Adding address {number} {street}")
         sql = "INSERT INTO commerce2.addresses (`addr_id`, `number`, `street`, `city`, `state`, `zip`) VALUES (%s, %s, %s,%s, %s, %s)"
         conn = AddrResource._get_connection()
         cur = conn.cursor()
