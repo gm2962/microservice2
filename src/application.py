@@ -25,7 +25,7 @@ WELCOME_EMAIL_SNS = 'arn:aws:sns:us-east-1:220478294544:welcome-email'
 #login setup
 app.secret_key = "3487836939993559999334502"
 
-
+IGNORE_LOGIN_ENDPOINTS =['login_callback', 'is_admin']
 
 
 @app.route('/login_callback')
@@ -50,7 +50,7 @@ def check_login():
     not_login_cb = False
     if request.endpoint is None:
         not_login_cb = True
-    elif 'login_callback' not in request.endpoint:
+    elif request.endpoint not in IGNORE_LOGIN_ENDPOINTS:
         not_login_cb = True
 
     if not_login_cb and 'user_info' not in session:
@@ -115,6 +115,15 @@ def add_user():
         return redirect("/users/" + user_id)
     return render_template('add_user.html')
 
+@app.route("/is_admin", methods=["GET"])
+def is_admin():
+    data = request.json
+    result = UsersResource.get_user_by_id(data["user_id"])
+
+    return_data = {"is_admin": 0}
+    if result:
+        return_data["is_admin"] = 1
+    return Response(json.dumps(return_data), status=200, content_type="text/plain")
 
 @app.route("/users/<user_id>", methods=["GET"])
 def get_user_by_id(user_id):
