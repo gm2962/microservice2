@@ -71,8 +71,10 @@ def check_login():
 
 @app.after_request
 def trigger_event(response):
-    if request.path == '/add_user' and request.method == 'POST':
-        message = {"admin_email": "test@columbia.edu"}
+    if request.path == '/welcome':
+        send_to = session['user_info']['email']
+        print(f"Sending welcome email to {send_to}")
+        message = {"send_email": send_to}
         SNSHandler.send_sns_message(
             WELCOME_EMAIL_SNS,
             message
@@ -86,6 +88,7 @@ def logout():
     return "You are logged out"
 
 @app.route("/")
+@app.route("/welcome")
 def landing_page():
     email = dict(session)['user_info']['email']
     return f'Hello, you are logged in as {email}!'
@@ -139,7 +142,7 @@ def add_user_from_login():
 
     AddrResource.add_address(addr_id, number, street, city, state, zipcode)
     UsersResource.add_user(user_id, first_name, last_name, email, addr_id, add_admin)
-    return redirect("/")
+    return redirect("/welcome")
 
 @app.route("/add_user", methods=["GET", "POST"])
 def add_user():

@@ -53,10 +53,10 @@ class UsersResource:
     @staticmethod
     def get_user_by_id(key, var="*"):
 
-        sql = "SELECT " + var + " FROM commerce2.users where user_id=%s"
+        sql = f"SELECT {var} FROM commerce2.users where user_id={key}"
         conn = UsersResource._get_connection()
         cur = conn.cursor()
-        res = cur.execute(sql, args=key)
+        res = cur.execute(sql)
         result = cur.fetchone()
 
         return result
