@@ -76,3 +76,17 @@ class AddrResource:
         result = cur.fetchone()
 
         return result
+
+    @staticmethod
+    def update_address(addr_id, number, street, city, state, zipcode):
+        sql = "UPDATE commerce2.addresses " \
+              f"SET number={number}, street='{street}', city='{city}', state='{state}', zip='{zipcode}' " \
+              f"WHERE addr_id='{addr_id}';"
+        print(sql)
+        conn = AddrResource._get_connection()
+        cur = conn.cursor()
+
+        res = cur.execute(sql)
+        result = cur.fetchone()
+
+        return result

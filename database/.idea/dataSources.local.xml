@@ -28,6 +28,7 @@
           <node kind="schema">
             <name qname="@" />
             <name qname="commerce2" />
+            <name qname="commerce3" />
           </node>
         </introspection-scope>
       </schema-mapping>

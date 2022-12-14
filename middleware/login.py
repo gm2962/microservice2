@@ -1,6 +1,12 @@
 from authlib.integrations.flask_client import OAuth
 import os
+import json
 from flask import url_for, Response
+from flask_login import LoginManager, login_user, current_user, logout_user
+from ..src.users import UsersResource
+from ..src.users import User
+
+login_manager = LoginManager()
 
 class loginHandler:
     oauth = None
@@ -10,6 +16,8 @@ class loginHandler:
 
     @classmethod
     def init_oauth(cls, app):
+        login_manager.init_app(app)
+
         # oAuth Setup
         print("Registering oauth")
         cls.oauth = OAuth(app)
@@ -26,6 +34,10 @@ class loginHandler:
             server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
         )
 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return UsersResource.get_user_class_by_id(user_id)
+
     @classmethod
     def call_to_login(cls, app_cb):
         if cls.oauth is None:
@@ -40,4 +52,35 @@ class loginHandler:
             print("Uninitialized login handler")
             return None
         token = cls.oauth.google.authorize_access_token()
-        return cls.oauth.google.get('userinfo')
+
+        user_info = cls.oauth.google.get('userinfo')
+        return user_info
+
+    @classmethod
+    def login_current_user(cls, user):
+        UsersResource.update_db_element(user.id, "is_authenticated", "1")
+        login_user(user, remember=True)
+
+    @classmethod
+    def is_verified(cls):
+        return current_user.is_authenticated
+
+    @classmethod
+    def get_user_id(cls):
+        return current_user.id
+
+    @classmethod
+    def load_user_data(cls):
+        user_data = {
+            "id": current_user.id,
+            "first_name": current_user.first_name,
+            "last_name": current_user.last_name,
+            "email": current_user.email
+        }
+
+        return json.dumps(user_data)
+
+    @classmethod
+    def logout(cls):
+        UsersResource.update_db_element(current_user.id, "is_authenticated", "0")
+        logout_user()

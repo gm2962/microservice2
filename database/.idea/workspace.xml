@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd506349-767e-4c6c-936f-e346f0a14053" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../src/templates/create_account.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/22f44741-d331-4ebd-992a-586d84d4def4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/22f44741-d331-4ebd-992a-586d84d4def4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bbdc9515-3fd9-4137-8add-31682e5279e6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bbdc9515-3fd9-4137-8add-31682e5279e6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice2.sql" beforeDir="false" afterPath="$PROJECT_DIR$/microservice2.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tables/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/tables/users.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/address.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/address.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../middleware/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/../middleware/login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/templates/add_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/templates/add_user.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/users.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,20 +24,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/gregm/Documents/columbia/cloud/microservice2/microservice2/database&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;database.query.execution&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/gregm/Documents/columbia/cloud/microservice3/microservice3/database/tables/orders.csv",
+    "settings.editor.selected.configurable": "database.query.execution"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\gregm\Documents\columbia\cloud\microservice1\microservice1\database\" />
