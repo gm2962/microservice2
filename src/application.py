@@ -60,7 +60,7 @@ def login_callback():
 @app.route('/login')
 def login_fnc():
     if 'user_info' not in session:
-        return loginHandler.call_to_login('login_callback')
+        return loginHandler.call_to_login()
     else:
         email = dict(session)['user_info']['email']
         return f"Welcome {email}"
@@ -75,7 +75,7 @@ def check_login():
 
     if require_login:
         if not loginHandler.is_verified(): #not logged in
-            return loginHandler.call_to_login('login_callback')
+            return loginHandler.call_to_login()
 
 @app.after_request
 def trigger_event(response):

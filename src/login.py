@@ -39,11 +39,12 @@ class loginHandler:
         return UsersResource.get_user_class_by_id(user_id)
 
     @classmethod
-    def call_to_login(cls, app_cb):
+    def call_to_login(cls):
         if cls.oauth is None:
             print("Uninitialized login handler")
             return Response("UNINITIALIZED LOGIN HANDLER", status=404, content_type="text/plain")
-        redirect_uri = url_for(app_cb, _external=True)
+        redirect_uri = os.environ.get("LOGIN_CALLBACK_URL")
+        print(f"Will redirect to {redirect_uri}")
         return cls.oauth.google.authorize_redirect(redirect_uri)
 
     @classmethod
