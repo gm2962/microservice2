@@ -3,8 +3,8 @@ import os
 import json
 from flask import url_for, Response
 from flask_login import LoginManager, login_user, current_user, logout_user
-from ..src.users import UsersResource
-from ..src.users import User
+from users import UsersResource
+from users import User
 
 login_manager = LoginManager()
 

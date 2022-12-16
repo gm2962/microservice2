@@ -8,8 +8,8 @@ from users import User
 from users import UsersResource
 from cards import CardResource
 from address import AddrResource
-from microservice2.middleware.notification import SNSHandler
-from microservice2.middleware.login import loginHandler
+from notification import SNSHandler
+from login import loginHandler
 from flask_cors import CORS
 
 
