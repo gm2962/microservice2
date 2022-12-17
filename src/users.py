@@ -94,7 +94,7 @@ class UsersResource:
     @staticmethod
     def get_user_by_id(key, var="*"):
 
-        sql = f"SELECT {var} FROM commerce2.users where user_id={key}"
+        sql = f"SELECT {var} FROM commerce2.users where user_id='{key}'"
         conn = UsersResource._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql)
@@ -106,7 +106,7 @@ class UsersResource:
     def update_db_element(key, param, val):
         sql = f"UPDATE commerce2.users " \
               f"SET {param}='{val}' " \
-              f"WHERE user_id={key};"
+              f"WHERE user_id='{key}';"
         print(sql)
         conn = UsersResource._get_connection()
         cur = conn.cursor()
